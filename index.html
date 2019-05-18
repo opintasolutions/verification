@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <title>verification</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+      }
+      label {
+        margin-bottom: 0;
+      }
+      .result {
+        width: 320px;
+        margin: 0 auto;
+      }
+      .result li {
+        padding: 15px;
+      }
+      .result li:nth-child(odd) {
+        background: #eee;
+      }
+      .result label {
+        width: 90px;
+      }
+      .result span {
+        padding: 0 0 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2
+        style="border-bottom: 2px solid black; margin: 40px; padding-bottom: 10px;text-align: right"
+      >
+        Certificate Verification
+      </h2>
+      <div class="container" style="margin: 30px;font-size: 20px;">
+        <label style="font-size: 17px;margin-bottom: 5px;"
+          >Enter Verification Number:</label
+        ><br />
+        <input
+          id="code-input"
+          type="number"
+          min="1"
+          max="25"
+          style="width: 140px; padding: 4px;"
+        />
+        <br />
+        <button
+          onclick="verify()"
+          class="btn btn-danger"
+          style="margin: 8px 0;"
+        >
+          VERIFY
+        </button>
+      </div>
+      <div>
+        <ul
+          class="container result"
+          style="list-style-type: none;font-size: 16px;"
+        >
+          <li id="Name"></li>
+          <li id="DOB"></li>
+          <li id="State"></li>
+          <li id="Event"></li>
+          <li id="Position"></li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      const data = [
+        {
+          name: 'Sachin Singh',
+          dob: '15.04.1998',
+          state: 'U.P',
+          event: '100M',
+          pos: '1st',
+        },
+        {
+          name: 'Shivam Chauhan',
+          dob: '27.12.2007',
+          state: 'U.P',
+          event: 'L.JUMP',
+          pos: '1st',
+        },
+        {
+          name: 'Rajat Kushwaha',
+          dob: '14.01.2003',
+          state: 'U.P',
+          event: '200M',
+          pos: '',
+        },
+        {
+          name: 'Devendar Prasad Yadav',
+          dob: '07.02.1998',
+          state: 'Bihar',
+          event: '100M',
+          pos: '2nd',
+        },
+        {
+          name: 'Kanhaiya Kumar',
+          dob: '02.01.2001',
+          state: 'Bihar',
+          event: '400M',
+          pos: '',
+        },
+        {
+          name: 'Nitish Kr. Yadav',
+          dob: '12.12.1999',
+          state: 'Bihar',
+          event: '400M',
+          pos: '1st',
+        },
+        {
+          name: 'Nitesh Kr. Yadav',
+          dob: '27.04.2000',
+          state: 'Bihar',
+          event: '200M',
+          pos: '',
+        },
+        {
+          name: 'Rajendra Giri',
+          dob: '15.03.2002',
+          state: 'Bihar',
+          event: '400M',
+          pos: '3rd',
+        },
+        {
+          name: 'Antu Kumar',
+          dob: '24.04.2000',
+          state: 'Bihar',
+          event: '200M',
+          pos: '',
+        },
+        {
+          name: 'Sunil Kr. Sah',
+          dob: '16.09.1998',
+          state: 'Bihar',
+          event: '200M',
+          pos: '',
+        },
+        {
+          name: 'Rakesh Kumar Ram',
+          dob: '01.01.2001',
+          state: 'Bihar',
+          event: '200M',
+          pos: '2nd',
+        },
+        {
+          name: 'Binesh Kr. Singh',
+          dob: '07.03.1998',
+          state: 'Bihar',
+          event: '200M',
+          pos: '',
+        },
+        {
+          name: 'Vinay Kr. Giri',
+          dob: '21.11.1998',
+          state: 'Bihar',
+          event: '400M',
+          pos: '',
+        },
+        {
+          name: 'Nitish Kr. Yadav',
+          dob: '15.03.2002',
+          state: 'Bihar',
+          event: '400M',
+          pos: '',
+        },
+        {
+          name: 'Sonu Kumar',
+          dob: '01.01.2005',
+          state: 'Bihar',
+          event: '200M',
+          pos: '3rd',
+        },
+        {
+          name: 'Amit Kumar',
+          dob: '01.01.2005',
+          state: 'Bihar',
+          event: '100M',
+          pos: '',
+        },
+        {
+          name: 'Kiranjeet Kumar',
+          dob: '01.01.2003',
+          state: 'Bihar',
+          event: '100M',
+          pos: '',
+        },
+        {
+          name: 'Chandra Shekhar',
+          dob: '',
+          state: 'Bihar',
+          event: '100M',
+          pos: '',
+        },
+        {
+          name: 'Amarjeet Kr. Yadav',
+          dob: '01.01.2004',
+          state: 'Bihar',
+          event: '100M',
+          pos: '',
+        },
+        {
+          name: 'Siltu Kumar',
+          dob: '07.05.2003',
+          state: 'Bihar',
+          event: '200M',
+          pos: '1st',
+        },
+        {
+          name: 'Sachin Singh',
+          dob: '15.14.1998',
+          state: 'U.P',
+          event: '100M',
+          pos: '1st',
+        },
+        {
+          name: 'Kumar Vaiwahav',
+          dob: '',
+          state: 'Bihar',
+          event: '100M',
+          pos: '1st',
+        },
+        {
+          name: 'Pankaj Kr. Mukhiya',
+          dob: '30.08.2005',
+          state: 'Bihar',
+          event: '200M',
+          pos: '2nd',
+        },
+        {
+          name: 'Saurav Kr. Yadav',
+          dob: '10.05.2015',
+          state: 'Bihar',
+          event: '200M',
+          pos: '',
+        },
+        {
+          name: 'Haridarshan Sharma',
+          dob: '',
+          state: 'Bihar',
+          event: '100M',
+          pos: '',
+        },
+      ];
+      function verify() {
+        const code = $('#code-input').val();
+        console.log(data);
+        if (code > 0 && code < 26) {
+          console.log(code);
+          console.log(data[parseInt(code) - 1]);
+          $('#Name').html(
+            `<label>Name:</label> <span>${
+              data[parseInt(code) - 1].name
+            }</span>`,
+          );
+          $('#DOB').html(
+            `<label>D.O.B:</label> <span>${
+              data[parseInt(code) - 1].dob
+            }</span>`,
+          );
+          $('#State').html(
+            `<label>State:</label> <span>${
+              data[parseInt(code) - 1].state
+            }</span>`,
+          );
+          $('#Event').html(
+            `<label>Event:</label> <span>${
+              data[parseInt(code) - 1].event
+            }</span>`,
+          );
+          $('#Position').html(
+            `<label>Position:</label> <span>${
+              data[parseInt(code) - 1].pos
+            }</span>`,
+          );
+        } else {
+          alert('Enter a valid number');
+        }
+      }
+    </script>
+  </body>
+</html>
